@@ -1,4 +1,5 @@
 console.log('CONNECTED!');
+const upSound = new Audio('./assets/up.m4a');
 let oldX = 0;
 let oldY = 0;
 function mouseMoveMethod(e) {
@@ -12,5 +13,6 @@ function mouseMoveMethod(e) {
   element.innerHTML = overallDirection;
   oldX = pageX;
   oldY = pageY;
+  upSound.play();
 }
 document.addEventListener('mousemove', mouseMoveMethod)
