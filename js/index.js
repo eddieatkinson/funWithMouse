@@ -1,5 +1,8 @@
 console.log('CONNECTED!');
 const upSound = new Audio('./assets/up.m4a');
+const downSound = new Audio('./assets/down.m4a');
+const rightSound = new Audio('./assets/right.m4a');
+const leftSound = new Audio('./assets/left.m4a');
 let oldX = 0;
 let oldY = 0;
 function mouseMoveMethod(e) {
@@ -9,10 +12,27 @@ function mouseMoveMethod(e) {
   const xDirection = changeInX > 0 ? 'right' : 'left';
   const yDirection = changeInY > 0 ? 'down' : 'up';
   const overallDirection = Math.abs(changeInX) > Math.abs(changeInY) ? xDirection : yDirection;
+  let soundToPlay;
+  switch(overallDirection) {
+    case 'right':
+      soundToPlay = rightSound;
+      break;
+    case 'left':
+      soundToPlay = leftSound;
+      break;
+    case 'up':
+      soundToPlay = upSound;
+      break;
+    case 'down':
+      soundToPlay = downSound;
+      break;
+    default:
+      return null;
+  }
   const element = document.getElementById('direction');
   element.innerHTML = overallDirection;
   oldX = pageX;
   oldY = pageY;
-  upSound.play();
+  soundToPlay.play();
 }
 document.addEventListener('mousemove', mouseMoveMethod)
