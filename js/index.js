@@ -17,25 +17,29 @@ function mouseMoveMethod(e) {
     const xDirection = changeInX > 0 ? 'right' : 'left';
     const yDirection = changeInY > 0 ? 'down' : 'up';
     const overallDirection = Math.abs(changeInX) > Math.abs(changeInY) ? xDirection : yDirection;
-    let soundToPlay;
+    let soundToPlay, color;
     switch(overallDirection) {
       case 'right':
         soundToPlay = rightSound;
+        color = 'blue';
         break;
       case 'left':
         soundToPlay = leftSound;
+        color = 'red';
         break;
       case 'up':
         soundToPlay = upSound;
+        color = 'green';
         break;
       case 'down':
         soundToPlay = downSound;
+        color = 'orange';
         break;
       default:
         return null;
     }
-    const element = document.getElementById('direction');
-    element.innerHTML = overallDirection;
+    const body = document.getElementById('body');
+    body.style.backgroundColor = color;
     oldX = pageX;
     oldY = pageY;
     soundToPlay.play();
