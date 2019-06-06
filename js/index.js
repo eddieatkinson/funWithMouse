@@ -6,9 +6,9 @@ let oldX = 0;
 let oldY = 0;
 let clicked = false;
 function buttonClicked() {
-  console.log('Clicked!');
   clicked = true;
 }
+let r = g = b = 0;
 function mouseMoveMethod(e) {
   if(clicked){
     const { pageX, pageY } = e;
@@ -17,27 +17,39 @@ function mouseMoveMethod(e) {
     const xDirection = changeInX > 0 ? 'right' : 'left';
     const yDirection = changeInY > 0 ? 'down' : 'up';
     const overallDirection = Math.abs(changeInX) > Math.abs(changeInY) ? xDirection : yDirection;
-    let soundToPlay, color;
+    let soundToPlay;
     switch(overallDirection) {
       case 'right':
         soundToPlay = rightSound;
-        color = 'blue';
+        r += 1;
         break;
       case 'left':
         soundToPlay = leftSound;
-        color = 'red';
+        g += 1;
         break;
       case 'up':
         soundToPlay = upSound;
-        color = 'green';
+        b += 1;
         break;
       case 'down':
         soundToPlay = downSound;
-        color = 'orange';
+        r += 1;
+        g += 1;
+        b -= 1;
         break;
       default:
         return null;
     }
+    if (r > 255) {
+      r -= 255;
+    }
+    if (g > 255) {
+      g -= 255;
+    }
+    if (b > 255) {
+      b -= 255;
+    }
+    let color = `rgb(${r}, ${g}, ${b})`;
     const body = document.getElementById('body');
     body.style.backgroundColor = color;
     oldX = pageX;
