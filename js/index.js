@@ -7,8 +7,11 @@ let oldY = 0;
 let clicked = false;
 function buttonClicked() {
   clicked = true;
+  buttonElement = document.getElementById('button');
+  buttonElement.parentNode.removeChild(buttonElement);
 }
-let r = g = b = 0;
+let rL = gL = bL = 0;
+let rR = gR = bR = 255;
 function mouseMoveMethod(e) {
   if(clicked){
     const { pageX, pageY } = e;
@@ -21,37 +24,73 @@ function mouseMoveMethod(e) {
     switch(overallDirection) {
       case 'right':
         soundToPlay = rightSound;
-        r += 1;
+        rL += 1;
+        rR -= 1;
         break;
       case 'left':
         soundToPlay = leftSound;
-        g += 1;
+        gL += 1;
+        gR -= 1;
         break;
       case 'up':
         soundToPlay = upSound;
-        b += 1;
+        bL += 1;
+        bR -= 1;
         break;
       case 'down':
         soundToPlay = downSound;
-        r += 1;
-        g += 1;
-        b -= 1;
+        rL += 1;
+        rR -= 1;
+        gL += 1;
+        gR -= 1;
+        bL -= 1;
+        bR += 1;
         break;
       default:
         return null;
     }
-    if (r > 255) {
-      r -= 255;
+    if (rL > 255) {
+      rL -= 255;
     }
-    if (g > 255) {
-      g -= 255;
+    if (gL > 255) {
+      gL -= 255;
     }
-    if (b > 255) {
-      b -= 255;
+    if (bL > 255) {
+      bL -= 255;
     }
-    let color = `rgb(${r}, ${g}, ${b})`;
-    const body = document.getElementById('body');
-    body.style.backgroundColor = color;
+    if (rR > 255) {
+      rR -= 255;
+    }
+    if (gR > 255) {
+      gR -= 255;
+    }
+    if (bR > 255) {
+      bR -= 255;
+    }
+    if (rL < 0) {
+      rL += 255;
+    }
+    if (gL < 0) {
+      gL += 255;
+    }
+    if (bL < 0) {
+      bL += 255;
+    }
+    if (rR < 0) {
+      rR += 255;
+    }
+    if (gR < 0) {
+      gR += 255;
+    }
+    if (bR < 0) {
+      bR += 255;
+    }
+    let colorLeft = `rgb(${rL}, ${gL}, ${bL})`;
+    const left = document.getElementById('left');
+    left.style.backgroundColor = colorLeft;
+    let colorRight = `rgb(${rR}, ${gR}, ${bR})`;
+    const right = document.getElementById('right');
+    right.style.backgroundColor = colorRight;
     oldX = pageX;
     oldY = pageY;
     soundToPlay.play();
